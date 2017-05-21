@@ -1,0 +1,6 @@
+{
+  "name": "airRandsButton",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AirRandsButton.js"
+}
