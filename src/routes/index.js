@@ -16,7 +16,6 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
-    require('./home').default,
     require('./airrands').default,
     require('./contact').default,
     require('./login').default,

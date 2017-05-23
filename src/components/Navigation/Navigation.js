@@ -45,7 +45,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <SideMenu styles={ styles } customCrossIcon={false} >
-          <Link className={s.link} to="/airrands">AirRands</Link>
+          <Link className={s.link} to="/">AirRands</Link>
           <Link className={s.link} to="/about">About</Link>
           <Link className={s.link} to="/contact">Contact</Link>
           <Link className={s.link} to="/login">Log in</Link>

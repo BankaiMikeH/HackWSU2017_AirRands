@@ -13,7 +13,7 @@ import Layout from '../../components/Layout';
 
 export default {
 
-  path: '/',
+  path: '/popouiu',
 
   async action({ fetch }) {
     const resp = await fetch('/graphql', {

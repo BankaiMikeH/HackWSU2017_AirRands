@@ -15,7 +15,7 @@ const title = 'Log In';
 
 export default {
 
-  path: '/login',
+  path: '/',
 
   action() {
     return {

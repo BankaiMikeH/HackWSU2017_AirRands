@@ -19,6 +19,10 @@
   padding: 20px 15px;
   max-width: var(--max-content-width);
   text-align: center;
+  float: right;
+  position: absolute;  
+  bottom:3px; 
+  right:3px;
 }
 
 .text {

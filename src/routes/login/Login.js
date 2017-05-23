@@ -24,7 +24,7 @@ class Login extends React.Component {
           <h1>{this.props.title}</h1>
           <p className={s.lead}>Log in with your username or company email address.</p>
           <div className={s.formGroup}>
-            <a className={s.facebook} href="/login/facebook">
+            <a className={s.facebook} href="/airrands">
               <svg
                 className={s.icon}
                 width="30"
@@ -40,7 +40,7 @@ class Login extends React.Component {
             </a>
           </div>
           <div className={s.formGroup}>
-            <a className={s.google} href="/login/google">
+            <a className={s.google} href="/airrands">
               <svg
                 className={s.icon}
                 width="30"
@@ -63,7 +63,7 @@ class Login extends React.Component {
             </a>
           </div>
           <div className={s.formGroup}>
-            <a className={s.twitter} href="/login/twitter">
+            <a className={s.twitter} href="/airrands">
               <svg
                 className={s.icon}
                 width="30"
@@ -110,7 +110,7 @@ class Login extends React.Component {
               />
             </div>
             <div className={s.formGroup}>
-              <button className={s.button} type="submit">
+              <button className={s.button} >
                 Log in
               </button>
             </div>

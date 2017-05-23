@@ -14,6 +14,7 @@ import s from './Layout.css';
 import Header from '../Header';
 import Navigation from '../Navigation';
 
+
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
