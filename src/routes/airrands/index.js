@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import uuidV4 from 'uuid/v4';
 import Layout from '../../components/Layout';
 import configureStore from '../../store/configureStore';
 import AirRands from './AirRands';
@@ -21,7 +22,7 @@ export default {
 
   action() {
     const initialState = {
-      airrands: { list: [{ name: 'first' }] },
+      airrands: { list: [{ name: 'first', id: uuidV4() }] },
       button: { isOpen: false },
     };
     const store = configureStore(initialState, {});

@@ -7,10 +7,10 @@ import s from './PlusButton.css';
 class PlusButton extends React.Component {
   render() {
     return (
-    <span className='fa-stack fa-lg'>
-    <FontAwesome name='square-o' stack='2x' />
-    <FontAwesome name='twitter' stack='1x' />
-  </span>
+      <span className="fa-stack fa-lg">
+        <FontAwesome name="square-o" stack="2x" />
+        <FontAwesome name="twitter" stack="1x" />
+      </span>
     );
   }
 }

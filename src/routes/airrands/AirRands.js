@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import uuidV4 from 'uuid/v4';
 import AddButton from '../../components/AddButton';
+import DeleteButton from '../../components/DeleteButton';
 import s from './AirRands.css';
 import AirRandsButton from '../../components/AirRandsButton';
 import * as airrandsActionCreators from '../../actions/airrands';
@@ -53,13 +55,14 @@ class AirRands extends React.Component {
     return (
       <div className={s.container}>
         <div>
-          {(this.props.list || [{ name: 'Add a Task...' }]).map((task, index) => (
-            <div key={index}>
+          {(this.props.list || [{ name: 'Add a Task...' }]).map(task => (
+            <div key={task.id}>
               <AirRandsButton
                 isOpen={this.props.isOpen}
                 name={task.name}
                 store={store}
               />
+              <DeleteButton list={list} store={store} id={task.id}>-</DeleteButton>
             </div>
           ))}
         </div>

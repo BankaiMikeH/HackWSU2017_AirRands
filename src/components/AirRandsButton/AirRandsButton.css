@@ -1,33 +1,47 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../variables.css';
+
 .airRandsButton {
-    background-color: #24db16; 
+    background-color: #24db16;
     border: none;
     color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    width: 85%;
-    
+    width: 50%;
+    display: inline-block;
+
 }
 
 .OpenAirRands{
-    background-color: #24db16; 
+    background-color: #24db16;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    width: 85%;
-    height: 30%;
-
+    display: inline-block;
+    width: 50%;
 }
 
+.boxField {
+  width: 50%;
+  display: inline-block;
+}

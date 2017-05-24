@@ -11,6 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import DeleteButton from '../../components/DeleteButton';
 import s from './AirRandsButton.css';
 import * as buttonActionCreators from '../../actions/button';
 
@@ -37,6 +38,10 @@ class AirRandsButton extends React.Component {
     // rating: PropTypes.number.isRequired,
   };
 
+  static defaultProps = {
+    isOpen: false,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -62,15 +67,18 @@ class AirRandsButton extends React.Component {
 
   render() {
     return (
-      <button onClick={() => this.toggleView()} className={s.airRandsButton}>
-        <span >
-          {this.props.name}
-        </span>
-        {
-          this.props.isOpen &&
-          <div className={s.OpenAirRands}> Extra Details Text </div>
-        }
-      </button>
+      <div>
+        <button onClick={() => this.toggleView()} className={s.airRandsButton}>
+          <span >
+            {this.props.name}
+          </span>
+          {
+            this.props.isOpen &&
+            <div className={s.OpenAirRands}> Extra Details Text </div>
+          }
+        </button>
+      </div>
+
     );
   }
 }

@@ -11,9 +11,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uuidV4 from 'uuid/v4';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './AddButton.css';
+import s from './DeleteButton.css';
 import * as airrandsActionCreators from '../../actions/airrands';
 
 
@@ -24,18 +23,21 @@ function mapStateToProps(state) {
   };
 }
 
-class AddButton extends React.Component {
+class DeleteButton extends React.Component {
 
   static propTypes = {
     store: PropTypes.object,
     setAirRands: PropTypes.func.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
+      id: PropTypes.string.isRequired,
     })),
+    id: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     list: [],
+    id: '',
   }
 
   constructor(props) {
@@ -55,24 +57,22 @@ class AddButton extends React.Component {
     this.unsubscribe();
   }
 
-  addRow() {
-    // console.log('in the addRow method');
+  deleteTask() {
+    const { id } = this.props;
+    console.log('in the delete task method: ', this.props);
+    // e.preventDefault();
     const { setAirRands, list } = this.props;
 
-    list.push({ name: 'NEW AIRRANDS!!!', id: uuidV4() });
-    setAirRands({ name: 'list', list });
+    const newList = list.filter(task => task.id !== id);
+    setAirRands({ name: 'list', list: newList });
   }
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <button onClick={() => this.addRow()}>+</button>
-        </div>
-      </div>
+      <button className={s.boxField} onClick={() => this.deleteTask()}> - </button>
     );
   }
 
 }
 
-export default connect(mapStateToProps, airrandsActionCreators)(withStyles(s)(AddButton));
+export default connect(mapStateToProps, airrandsActionCreators)(withStyles(s)(DeleteButton));
