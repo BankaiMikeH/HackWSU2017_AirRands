@@ -1,38 +1,41 @@
 import React from 'react';
-import Id from '../../utils/id'
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
-import AddButton from '../../components/AddButton'
+import { Guid } from 'guid';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import AddButton from '../../components/AddButton';
 import s from './AirRands.css';
-import AirRandsButton from '../../components/AirRandsButton'
-import PlusButton from '../../components/PlusButton'
-import sARB from '../../components/AirRandsButton/AirRandsButton.css'
-import * as airrandsActionCreators from '../../actions/airrands'
+import AirRandsButton from '../../components/AirRandsButton';
+import * as airrandsActionCreators from '../../actions/airrands';
 
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps: ", state.airrands);
   return {
-    airrands: state.airrands,
+    list: state.airrands.list,
+    isOpen: state.isOpen,
   };
 }
 
 class AirRands extends React.Component {
   static propTypes = {
     store: PropTypes.object,
-    airrands: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
     })),
-    setAirRands: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    list: [],
+    isOpen: false,
+  }
+
 
   constructor(props) {
     super(props);
-    console.log("airrands: ", JSON.stringify(this.props.airrands));
     this.state = {
-      airrands: this.props.airrands,
-      store: this.props.store,
+      isOpen: false,
+      list: [],
     };
   }
 
@@ -46,25 +49,22 @@ class AirRands extends React.Component {
     this.unsubscribe();
   }
 
-
   render() {
-    const { setAirRands } = this.props;
-    const { airrands } = this.props;
+    const { list, store } = this.props;
+    //const id = Guid.create();
+    console.log(Guid);
     return (
       <div className={s.container}>
         <div>
-          {airrands.map(element => (
-            <div> <AirRandsButton isOpen={false} key={Id()} name={element.name} /></div>
+          {(this.props.list || [{ name: 'Add a Task...' }]).map(task => (
+            <div key={task.name}> <AirRandsButton isOpen={this.props.isOpen} name={task.name} store={store} /></div>
           ))}
         </div>
-        <div>
-          <AddButton/>
-        </div>
+        <AddButton list={list} store={store} />
       </div>
 
     );
   }
-
 }
 
 export default connect(mapStateToProps, airrandsActionCreators)(withStyles(s)(AirRands));

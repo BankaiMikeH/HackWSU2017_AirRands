@@ -5,10 +5,7 @@ export default function airrands(state = {}, action) {
   switch (action.type) {
 
     case SET_AIR_RANDS:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
-      };
+      return Object.assign({}, state, { list: action.payload.list });
     default:
       return state;
   }

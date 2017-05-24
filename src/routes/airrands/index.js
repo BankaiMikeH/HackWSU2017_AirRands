@@ -11,7 +11,6 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import configureStore from '../../store/configureStore';
 import AirRands from './AirRands';
-import Id from '../../utils/id'
 
 const title = 'Air Rands';
 
@@ -21,15 +20,14 @@ export default {
 
 
   action() {
-
     const initialState = {
-      airrands: [{key: Id(), name: 'Real Data'}, {key: Id(), name: 'Real Data2'}],
+      airrands: { list: [{ name: 'first' }] },
+      button: { isOpen: false },
     };
-
     const store = configureStore(initialState, {});
     return {
       title,
-      component: <Layout><AirRands store={store} airrands={store.getState().airrands} title={title} /></Layout>,
+      component: <Layout><AirRands store={store} /></Layout>,
     };
   },
 

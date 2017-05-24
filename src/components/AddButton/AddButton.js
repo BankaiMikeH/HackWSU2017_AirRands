@@ -8,44 +8,65 @@
  */
 
 import React from 'react';
-import s from './AddButton.css';
-import Link from '../Link';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
-import AirRandsButton from '../AirRandsButton'
-import AirRands from '../../routes/airrands'
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './AddButton.css';
+import * as airrandsActionCreators from '../../actions/airrands';
+
+
+function mapStateToProps(state) {
+  // console.log('mapStateToProps: ', state.airrands);
+  return {
+    list: state.airrands.list,
+  };
+}
 
 class AddButton extends React.Component {
 
   static propTypes = {
-
-    //name: "AddButton",
-    // description: PropTypes.string.isRequired,
-    // destinationA: PropTypes.string.isRequired,
-    // destinationB: PropTypes.string.isRequired,
-    // payments: PropTypes.number.isRequired,
-    // status: PropTypes.string.isRequired,
-    // messages: PropTypes.string.isRequired,
-    // rating: PropTypes.number.isRequired,
+    store: PropTypes.object,
+    setAirRands: PropTypes.func.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+    })),
   };
 
+  static defaultProps = {
+    list: [],
+  }
 
   constructor(props) {
     super(props);
-     this.state = {
-       isOpen: false,
-     };
+    this.state = {
+      list: [],
+    };
   }
 
+  componentDidMount() {
+    this.unsubscribe = this.props.store.subscribe(() =>
+      this.forceUpdate(),
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  addRow() {
+    // console.log('in the addRow method');
+    const { setAirRands, list } = this.props;
+
+    list.push({ name: 'NEW AIRRANDS!!!' });
+    setAirRands({ name: 'list', list });
+  }
 
   render() {
-     const { setAirRands } = this.props;
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <button>+</button>
+          <button onClick={() => this.addRow()}>+</button>
         </div>
       </div>
     );
@@ -53,4 +74,4 @@ class AddButton extends React.Component {
 
 }
 
-export default withStyles(s)(AddButton);
+export default connect(mapStateToProps, airrandsActionCreators)(withStyles(s)(AddButton));

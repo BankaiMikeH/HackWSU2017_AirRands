@@ -2,13 +2,13 @@
 
 import { SET_AIR_RANDS } from '../constants';
 
-export function setAirRands({ name, value }) {
-   console.log("in the reducer", name);
+export function setAirRands({ name, list }) {
+  console.log('in the reducer', `name: ${name} list: ${list}`);
   return {
     type: SET_AIR_RANDS,
-    payload: {
+    payload: Object.assign({
       name,
-      value,
-    },
+      list,
+    }),
   };
 }
