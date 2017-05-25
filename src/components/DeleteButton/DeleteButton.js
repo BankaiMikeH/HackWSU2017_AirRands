@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -17,7 +8,6 @@ import * as airrandsActionCreators from '../../actions/airrands';
 
 
 function mapStateToProps(state) {
-  // console.log('mapStateToProps: ', state.airrands);
   return {
     list: state.airrands.list,
   };
@@ -28,11 +18,12 @@ class DeleteButton extends React.Component {
   static propTypes = {
     store: PropTypes.object,
     setAirRands: PropTypes.func.isRequired,
-    list: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      id: PropTypes.string.isRequired,
-    })),
     id: PropTypes.string.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      isOpen: PropTypes.bool.isRequired,
+    })),
   };
 
   static defaultProps = {
@@ -44,6 +35,7 @@ class DeleteButton extends React.Component {
     super(props);
     this.state = {
       list: [],
+      id: '',
     };
   }
 
@@ -58,11 +50,7 @@ class DeleteButton extends React.Component {
   }
 
   deleteTask() {
-    const { id } = this.props;
-    console.log('in the delete task method: ', this.props);
-    // e.preventDefault();
-    const { setAirRands, list } = this.props;
-
+    const { id, setAirRands, list } = this.props;
     const newList = list.filter(task => task.id !== id);
     setAirRands({ name: 'list', list: newList });
   }

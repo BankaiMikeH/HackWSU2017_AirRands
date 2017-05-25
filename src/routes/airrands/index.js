@@ -22,8 +22,7 @@ export default {
 
   action() {
     const initialState = {
-      airrands: { list: [{ name: 'first', id: uuidV4() }] },
-      button: { isOpen: false },
+      airrands: { list: [] },
     };
     const store = configureStore(initialState, {});
     return {

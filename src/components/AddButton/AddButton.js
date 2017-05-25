@@ -18,7 +18,6 @@ import * as airrandsActionCreators from '../../actions/airrands';
 
 
 function mapStateToProps(state) {
-  // console.log('mapStateToProps: ', state.airrands);
   return {
     list: state.airrands.list,
   };
@@ -30,7 +29,9 @@ class AddButton extends React.Component {
     store: PropTypes.object,
     setAirRands: PropTypes.func.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      isOpen: PropTypes.bool.isRequired,
     })),
   };
 
@@ -56,10 +57,9 @@ class AddButton extends React.Component {
   }
 
   addRow() {
-    // console.log('in the addRow method');
     const { setAirRands, list } = this.props;
+    list.push({ name: uuidV4(), id: uuidV4(), isOpen: false });
 
-    list.push({ name: 'NEW AIRRANDS!!!', id: uuidV4() });
     setAirRands({ name: 'list', list });
   }
 
@@ -72,7 +72,6 @@ class AddButton extends React.Component {
       </div>
     );
   }
-
 }
 
 export default connect(mapStateToProps, airrandsActionCreators)(withStyles(s)(AddButton));

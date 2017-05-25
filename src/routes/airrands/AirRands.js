@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import uuidV4 from 'uuid/v4';
 import AddButton from '../../components/AddButton';
 import DeleteButton from '../../components/DeleteButton';
 import s from './AirRands.css';
@@ -13,29 +12,25 @@ import * as airrandsActionCreators from '../../actions/airrands';
 function mapStateToProps(state) {
   return {
     list: state.airrands.list,
-    isOpen: state.isOpen,
   };
 }
 
 class AirRands extends React.Component {
   static propTypes = {
     store: PropTypes.object,
-    isOpen: PropTypes.bool.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
     })),
   };
 
   static defaultProps = {
     list: [],
-    isOpen: false,
   }
-
 
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
       list: [],
     };
   }
@@ -55,20 +50,21 @@ class AirRands extends React.Component {
     return (
       <div className={s.container}>
         <div>
-          {(this.props.list || [{ name: 'Add a Task...' }]).map(task => (
+          {(this.props.list).map(task => (
             <div key={task.id}>
               <AirRandsButton
-                isOpen={this.props.isOpen}
+                id={task.id}
+                isOpen={task.isOpen}
                 name={task.name}
                 store={store}
+                list={list}
               />
-              <DeleteButton list={list} store={store} id={task.id}>-</DeleteButton>
+              <DeleteButton id={task.id} list={list} store={store} >-</DeleteButton>
             </div>
           ))}
         </div>
         <AddButton list={list} store={store} />
       </div>
-
     );
   }
 }

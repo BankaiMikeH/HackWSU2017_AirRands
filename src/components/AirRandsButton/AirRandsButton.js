@@ -1,34 +1,33 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import DeleteButton from '../../components/DeleteButton';
-import s from './AirRandsButton.css';
-import * as buttonActionCreators from '../../actions/button';
 
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './AirRandsButton.css';
+import * as airrandsActionCreator from '../../actions/airrands';
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps: ', state.isOpen);
   return {
-    isOpen: state.button.isOpen,
+    isOpen: state.airrands.isOpen,
+    list: state.airrands.list,
   };
 }
 
 class AirRandsButton extends React.Component {
   static propTypes = {
     store: PropTypes.object,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    setButtonVisibility: PropTypes.func.isRequired,
+    setAirRands: PropTypes.func.isRequired,
+    setIsOpen: PropTypes.func.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      isOpen: PropTypes.bool.isRequired,
+    })),
+
+    //setButtonVisibility: PropTypes.func.isRequired,
     // description: PropTypes.string.isRequired,
     // destinationA: PropTypes.string.isRequired,
     // destinationB: PropTypes.string.isRequired,
@@ -40,12 +39,14 @@ class AirRandsButton extends React.Component {
 
   static defaultProps = {
     isOpen: false,
+    list: [],
   }
 
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
+      list: [],
     };
   }
 
@@ -59,22 +60,34 @@ class AirRandsButton extends React.Component {
     this.unsubscribe();
   }
 
+  filterById(task) {
+    const { id, setIsOpen } = this.props;
+    if (task.id === id) {
+      const isVisible = task.isOpen !== true;
+      const showButton = { isOpen: isVisible };
+      Object.assign(task, { ...showButton });
+      setIsOpen({ name: 'isOpen', isOpen: isVisible });
+    }
+    return task;
+  }
+
   toggleView() {
-    const { setButtonVisibility } = this.props;
-    setButtonVisibility({ name: 'isOpen', isOpen: !this.props.isOpen });
-    console.log('state: ', this.state.isOpen);
+    const { setAirRands, list } = this.props;
+    const filteredList = list.filter(task => this.filterById(task));
+    setAirRands({ name: 'list', list: filteredList });
   }
 
   render() {
+    const { id, list } = this.props;
+    const me = list.filter(task => task.id === id);
     return (
       <div>
         <button onClick={() => this.toggleView()} className={s.airRandsButton}>
           <span >
             {this.props.name}
           </span>
-          {
-            this.props.isOpen &&
-            <div className={s.OpenAirRands}> Extra Details Text </div>
+          { me[0].isOpen &&
+            <span className={s.openAirRands}> Extra Details Text </span>
           }
         </button>
       </div>
@@ -83,4 +96,4 @@ class AirRandsButton extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, buttonActionCreators)(withStyles(s)(AirRandsButton));
+export default connect(mapStateToProps, airrandsActionCreator)(withStyles(s)(AirRandsButton));
